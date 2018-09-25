@@ -42,7 +42,7 @@ class NovelsController < ApplicationController
     end
   end
 
-  def destroygit init
+  def destroy
     @novel.destroy
     flash[:danger] = "novel was successfully deleted"
     # respond_to do |format|
