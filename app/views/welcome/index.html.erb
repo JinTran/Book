@@ -1,0 +1,22 @@
+
+
+
+<% if user_signed_in?  %>
+  <h1 align="center"> Welcome <%= current_user.username %> </h1>
+<% else  %>
+
+  <div class="center">
+    <h1 align="center"> Welcome Alpha </h1>
+    <hr>
+
+    <%= link_to 'login', new_user_session_path, class: "btn btn-lg btn-info"%>
+    <%= link_to 'signup', new_user_registration_path, class: "btn btn-lg btn-success" %>
+  </div>
+
+<% end %>
+
+
+
+
+
+<%#= link_to 'Logout', destroy_user_session_path %>

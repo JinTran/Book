@@ -1,0 +1,37 @@
+<% obj.each do |novel| %>
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+      <div class="well well-lg " id="novel_<%= novel.id %>">
+        <div class="article-title">
+          <%= link_to novel.name, novel_path(novel) %>
+        </div>
+        <div class="article-body">
+          <%= truncate(novel.description, lenght: 100) %>
+          <div class="article-meta-details">
+            <small>publisher: <%= novel.publisher %></small>
+            <br>
+            <small>Created by <%= novel.user ? novel.user.username : "no author " %>
+              ,<%= time_ago_in_words(novel.created_at) %> ago,
+              last update <%= time_ago_in_words(novel.updated_at) %>
+            </small>
+          </div>
+        </div>
+        <%# if novel.image.attached? %>
+        <%#= link_to image_tag novel.image , size: "100x100"%>
+        <%#end %>
+        <%# if user_signed_in? && (current_user == novel.user || current_user.admin?) %>
+        <div class="article-actions">
+          <% if can? :update, novel %>
+            <%= link_to "Edit", edit_novel_path(novel), class: "btn btn-xs btn-primary" %>
+          <% end %>
+
+          <% if can? :delete, novel %>
+            <%= link_to "Delete", novel_path(novel), method: :delete, data: {confirm: "Are you sure ? "}, class: "btn btn-xs btn-danger", remote: true %>
+          <% end %>
+
+        </div>
+<%# end %>
+      </div>
+    </div>
+  </div>
+<% end %>

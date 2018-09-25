@@ -1,0 +1,55 @@
+<h1 align="center"> novels </h1>
+
+<% if user_signed_in? %>
+  <%= link_to "New novel", new_novel_path, class: "btn btn-md btn-primary" %>
+<% end %>
+<br>
+
+<hr>
+
+<% if params[:action] == 'search' %>
+  <div class="results-block">
+    <%= bootstrap_flash %>
+  </div>
+<% end %>
+
+<div id="novel-lookup" align="center">
+  <%= form_tag search_novels_path, remote: true, method: :get,
+
+               id: "novel-lookup-form" do %>
+    <div class="form-group row no-padding text-center col-md-12">
+      <div class="col-md-10">
+        <%= text_field_tag :novel, params[:novel],
+
+                           placeholder: "Novel ticker symbol",
+                           autofocus: true,
+                           class: "form-control search-box input-lg" %>
+      </div>
+      <div class="col-md-2">
+        <%= button_tag(type: :submit, class: "btn btn-lg btn-success") do %>
+          <i class="fa fa-search"></i> Search
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div id="results">
+  <%= render 'novels/result' %>
+</div>
+
+
+
+<div align="center ">
+  <%= will_paginate %>
+</div>
+
+<div id="container_novel">
+  <%= render 'novels/novel', obj: @novels %>
+</div>
+
+<div align="center ">
+  <%= will_paginate %>
+</div>
+
+
+

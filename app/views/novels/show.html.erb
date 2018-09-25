@@ -1,0 +1,48 @@
+
+
+
+
+<h2 align="center">
+  Name: <%= @novel.name %>
+</h2>
+
+<div class="well col-xs-8 col-xs-offset-2">
+  <% if @novel.user %>
+    <ul class="listing">
+      <div class="row center">
+        <div class="well col-md-4 col-md-offset-4">
+          <li>Created by:</li>
+<!--          <li><%#= link_to gravatar_for(@novel.user), user_path(@novel.user) %></li>-->
+          <li class="article-title">
+            <%= link_to @novel.user.username, user_registration_path(@novel.user) %>
+          </li>
+          <li>
+            <small><%= pluralize(@novel.user.novels.count, "novel") if @novel.user.novels %></small>
+          </li>
+        </div>
+      </div>
+    </ul>
+  <% end %>
+  <h4 class="description"><strong>Description:</strong></h4>
+  <hr>
+  <%= @novel.description %>
+  <h5>
+    <strong>Publisher: </strong>
+    <%= simple_format(@novel.publisher) %>
+  </h5>
+  <div>
+    <h3>image:</h3>
+    <%# if @novel.image.attached? %>
+      <%#= link_to image_tag @novel.image , class: "thumbnail"%>
+    <%#end %>
+  </div>
+
+
+  <div class="article-actions">
+    <% if user_signed_in? && (current_user == @novel.user || current_user.admin?) %>
+      <%= link_to "Edit", edit_novel_path(@novel), class: "btn btn-xs btn-primary" %>
+      <%= link_to "Delete", novel_path, method: :delete, data: {confirm: "Are you sure ? "}, class: "btn btn-xs btn-danger" %>
+    <% end %>
+    <%= link_to "View all novels", novels_path, class: "btn btn-xs btn-success" %>
+  </div>
+</div>
